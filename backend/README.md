@@ -186,6 +186,6 @@ This backend is structured to be seamlessly deployed via **Render** or **Railway
    - `ENCRYPTION_KEY`: The encryption key for user API keys
    <!-- - `DEBUG`: Enable debug mode (True/False) -->
    <!-- - `LOG_LEVEL`: The log level (INFO, DEBUG, ERROR, etc.) -->
-   <!-- - `CORS_ORIGINS`: The CORS origins -->
+   - `CORS_ORIGINS`: The CORS origins
    - `FREE_CHAT_LIMIT`: The free chat limit
    
