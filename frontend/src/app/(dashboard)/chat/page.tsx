@@ -33,6 +33,12 @@ export default function ChatPage() {
   const [streamingContent, setStreamingContent] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom of chat when new messages arrive or while streaming
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+  }, [messages, streamingContent]);
 
   // Responsive sidebar: close on mobile by default
   useEffect(() => {
@@ -455,6 +461,8 @@ export default function ChatPage() {
                 </div>
               </div>
             )}
+
+            <div ref={messagesEndRef} />
           </div>
         </div>
 
