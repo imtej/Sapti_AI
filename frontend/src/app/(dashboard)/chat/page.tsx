@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { api } from "@/lib/api";
@@ -32,6 +32,7 @@ export default function ChatPage() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [streamingContent, setStreamingContent] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Responsive sidebar: close on mobile by default
   useEffect(() => {
@@ -97,7 +98,7 @@ export default function ChatPage() {
       const data = await api.getConversation(convId, token);
       setMessages(data.messages || []);
       setActiveConvId(convId);
-      
+
       // Auto-collapse sidebar on mobile
       if (typeof window !== "undefined" && window.innerWidth <= 768) {
         setSidebarOpen(false);
@@ -108,6 +109,14 @@ export default function ChatPage() {
   };
 
   // Send message
+  const handleInputContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
   const sendMessage = async () => {
     if (!input.trim() || isStreaming || !token) return;
 
@@ -119,6 +128,9 @@ export default function ChatPage() {
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
     setIsStreaming(true);
     setStreamingContent("");
 
@@ -240,7 +252,11 @@ export default function ChatPage() {
     setActiveConvId(null);
     setMessages([]);
     setStreamingContent("");
-    
+    setInput("");
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
+
     // Auto-collapse sidebar on mobile
     if (typeof window !== "undefined" && window.innerWidth <= 768) {
       setSidebarOpen(false);
@@ -446,10 +462,11 @@ export default function ChatPage() {
         <div className={styles.inputArea}>
           <div className={styles.inputContainer}>
             <textarea
+              ref={textareaRef}
               className={styles.chatInput}
-              placeholder="Message Sapti..."
+              placeholder="Ask anything to Sapti..."
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={handleInputContent}
               onKeyDown={handleKeyDown}
               rows={1}
               disabled={isStreaming}
@@ -467,6 +484,7 @@ export default function ChatPage() {
           </div>
           <p className={styles.inputHint}>
             Sapti remembers your conversations and evolves through the Hive Mind
+            <span style={{ opacity: 0.6, marginLeft: '8px' }}>•  Shift + Enter ↵ for new line</span>
           </p>
         </div>
       </main>

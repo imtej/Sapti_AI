@@ -358,13 +358,27 @@
   border: none;
   outline: none;
   resize: none;
-  max-height: 120px;
+  max-height: 240px;
   padding: var(--space-sm) 0;
   line-height: 1.5;
 }
 
 .chatInput::placeholder {
   color: var(--text-tertiary);
+}
+
+.chatInput::-webkit-scrollbar {
+  width: 4px;
+}
+.chatInput::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chatInput::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+}
+.chatInput::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .sendBtn {
@@ -386,10 +400,12 @@
   background: var(--accent-primary);
   color: white;
   box-shadow: var(--shadow-glow);
+  transform: scale(1.05);
 }
 
 .sendBtnActive:hover {
   background: var(--accent-primary-hover);
+  transform: scale(1.1);
 }
 
 .inputHint {
