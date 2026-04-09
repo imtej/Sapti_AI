@@ -69,7 +69,7 @@ async def lifespan(app: FastAPI):
                 break
             except Exception as e:
                 logger.error("evolver_loop_error", error=str(e))
-            await asyncio.sleep(6 * 60 * 60)  # Sleep exactly 6 hours
+            await asyncio.sleep(25 * 60)  # Sleep exactly 25 minutes
 
     async def run_identity_builder():
         await asyncio.sleep(30)  # Gentle 30s stagger
@@ -85,7 +85,7 @@ async def lifespan(app: FastAPI):
     curator_task = asyncio.create_task(run_curator())
     evolver_task = asyncio.create_task(run_evolver())
     identity_task = asyncio.create_task(run_identity_builder())
-    logger.info("background_schedules_started", curator="10m", evolver="12h", identity_builder="30m")
+    logger.info("background_schedules_started", curator="10m", evolver="25m", identity_builder="30m")
 
     yield
 

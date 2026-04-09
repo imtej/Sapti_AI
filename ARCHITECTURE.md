@@ -202,7 +202,7 @@ Constructs a dynamic system prompt by assembling:
 
 ### 7. Evolver (Horse 7) — Periodic
 
-**Trigger:** Called periodically every t = 6 hour (cron / manual endpoint)
+**Trigger:** Called periodically every t = 25 minutes (cron / manual endpoint)
 
 **Processing:**
 1. Counts total interactions (`messages` where role='user')
