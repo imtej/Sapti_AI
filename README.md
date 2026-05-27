@@ -1,4 +1,4 @@
-# Sapti AI: The Hive Mind Protocol 🐴
+# Sapti AI: The Hive Mind Protocol 🐴 
 
 > **Sapti** (सप्ती): From the Rig Veda — a team of seven horses pulling a single chariot. Multiple processes, one evolving intelligence. 
 
